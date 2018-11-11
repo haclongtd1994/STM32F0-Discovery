@@ -1,0 +1,54 @@
+1. Board STM32F0 Discovery
+2. Reference manual and user board STM.
+3. Create make file project.
+
+
+/////////////////////////////Usart/////////////////////////////////
+1. RCC: Setting clock for MCU (Select source for usart). (File clock.c)
+  Cac buoc thuc hien cap xung clock chinh xac cho system:
+    Tat cac ngat o thanh ghi RCC_CIR.
+    Tat bo dao dong noi HSI RCC_CR.
+    Tat bo dao dong PLL RCC_CR.
+    Chon bo chia cho HSE o thanh ghi RCC_CFGR2.
+    Chon he so nhan cho PLL RCC_CFGR.
+    Chon nguon cho PLL RCC_CFGR.
+    Bat lai PLL RCC_CR.
+    Chon bo chia ahb 1
+    Chon lai nguon xung clock cho he thong
+    Chon lai bo chia apb1
+    Chon nguon xung clock cho usart
+  Tao them 1 ham de tao xung clock cap den bo usart thanh ghi RCC_APB2ENR.
+2. GPIO :
+  Xac dinh cac chan PA9 va PA10 la cac moder alt o thanh ghi GPIO_MODER.
+  Xac dinh Alt funtion may tra tai lieu stm32f051r8 trang 37.
+  Them cac code de cai dat.
+3. Interrupt:
+  Xoa co ngat va tat truyen nhan data USART_RQR, USART_ICR.
+  Xem trang 731 tai lieu en.DM00031936 de chon cac bit enable interrupt tuong ung de sinh ra ngat.
+4. USART:
+Khoi tao:
+- Disable USART module -> USART_CR1[UE] = 0;
+- Data = 8 bits -> USART_CR1[M1:M0]
+- Parity = none -> USART_CR1[PCE]
+- Stop = 1 bit  -> USART_CR2[STOP]
+- Baudrate = 9600 bps -> thiết lập oversample1 USART_CR1[OVER8] = 16 bits
+- Enable USART module -> USART_CR1[UE] = 1;
+- Enable Tx -> USART_CR1[TE]
+- Enable Rx -> USART_CR1[RE]
+Quá trình truyền dữ liệu:
+- Cần kiểm tra cờ USART_ISR[TXE]
+	-> Nếu USART_ISR[TXE] = 1 -> tiến hành ghi dữ liệu vào USART_TDR = <data> (lưu ý là ghi 1 byte dữ liệu)
+	-> Nếu USART_ISR[TXE] = 0 -> không ghi dữ liệu vào USART_TDR
+- Truyền đc dữ liệu
+
+Quá trình nhận dữ liệu:
+- Cần kiểm tra cờ USART_ISR[RXNE]
+- Nếu USART_ISR[RXNE] = 1 -> tiến hành đọc dữ liệu trên thanh ghi USART_RDR[8:0]
+- Xóa cờ ngắt USART_ISR[RXNE] bằng việc đọc dữ liệu tren USART_RDR hoặc ghi 1 tới bít USART_RQR[RXFRQ]
+
+Những phần tài liệu cần đọc:
+- 27.5.2./ 27.5.3/ 27.5.4/ 27.5.9/ 27.8
+
+
+C. Phụ lục
+1. Driver cho PL2303: làm theo hướng dẫn theo link http://www.totalcardiagnostics.com/support/Knowledgebase/Article/View/92/20/prolific-usb-to-serial-fix-official-solution-to-code-10-error
