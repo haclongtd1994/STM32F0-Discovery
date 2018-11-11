@@ -1,0 +1,8 @@
+PA0 -> Page 214(en.DM00031936) -> EXTI0 -> Page 210(en.DM00031936) -> Possision : 5
+Map Interrupt ID -> Open file startup_ARMCM0.S and Search ID In /* External interrupts */ and replace to EXTI0 -> Create function interrupt in startup and main.c
+Thiet lap ngat ngoai vi:
+    GPIO: GPIOA_MODER_INPUT
+    EXTI: EXTI_IMK
+    SYSCFG: [EXTI0[0:3]]SYSCFG_EXTICR1
+Thiet lap priority Sử dụng tài liệu Core M0 4.2
+ASM toan cuc cpsie i

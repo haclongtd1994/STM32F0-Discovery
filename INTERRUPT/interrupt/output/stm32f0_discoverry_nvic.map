@@ -1,0 +1,129 @@
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x0000000008000000 0x0000000000008000 xr
+RAM              0x0000000020000000 0x0000000000001000 xrw
+*default*        0x0000000000000000 0xffffffffffffffff
+
+Linker script and memory map
+
+
+.text           0x0000000008000000      0x350
+ *(.vectors)
+ .vectors       0x0000000008000000       0xc0 ./output/startup_ARMCM0.o
+                0x0000000008000000                __Vectors
+                0x00000000080000c0                __Vectors_End = .
+                0x00000000000000c0                __Vectors_Size = (__Vectors_End - __Vectors)
+                0x00000000080000c0                __end__ = .
+ *(.text*)
+ .text          0x00000000080000c0      0x28c ./output/main.o
+                0x00000000080000c0                Reserved_IRQHandler
+                0x00000000080000c6                NMI_Handler
+                0x00000000080000cc                HardFault_Handler
+                0x00000000080000d2                SVC_Handler
+                0x00000000080000d8                PendSV_Handler
+                0x00000000080000de                SysTick_Handler
+                0x00000000080000e4                EXTI0_1_IRQHandler
+                0x0000000008000134                enable_clock
+                0x0000000008000184                init_pin
+                0x00000000080001e8                init_interrupt
+                0x0000000008000284                led_on
+                0x00000000080002a4                led_off
+                0x00000000080002c8                delay
+                0x0000000008000308                main
+ .text          0x000000000800034c        0x4 ./output/startup_ARMCM0.o
+                0x000000000800034c                Reset_Handler
+ *(.init)
+ *(.fini)
+ *(.rodata*)
+ *(.eh_frame*)
+
+.glue_7         0x0000000008000350        0x0
+ .glue_7        0x0000000008000350        0x0 linker stubs
+
+.glue_7t        0x0000000008000350        0x0
+ .glue_7t       0x0000000008000350        0x0 linker stubs
+
+.vfp11_veneer   0x0000000008000350        0x0
+ .vfp11_veneer  0x0000000008000350        0x0 linker stubs
+
+.v4_bx          0x0000000008000350        0x0
+ .v4_bx         0x0000000008000350        0x0 linker stubs
+
+.iplt           0x0000000008000350        0x0
+ .iplt          0x0000000008000350        0x0 ./output/main.o
+
+.rel.dyn        0x0000000008000350        0x0
+ .rel.iplt      0x0000000008000350        0x0 ./output/main.o
+
+.data           0x0000000020000000        0x0
+                0x0000000020000000                __data_start__ = .
+ *(vtable)
+ *(.data*)
+ .data          0x0000000020000000        0x0 ./output/main.o
+ .data          0x0000000020000000        0x0 ./output/startup_ARMCM0.o
+                0x0000000020000000                __data_end__ = .
+
+.igot.plt       0x0000000020000000        0x0
+ .igot.plt      0x0000000020000000        0x0 ./output/main.o
+
+.bss            0x0000000020000000        0x4
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                __bss_start__ = .
+ *(.bss*)
+ .bss           0x0000000020000000        0x4 ./output/main.o
+                0x0000000020000000                led_state
+ .bss           0x0000000020000004        0x0 ./output/startup_ARMCM0.o
+ *(COMMON)
+                0x0000000020000004                . = ALIGN (0x4)
+                0x0000000020000004                __bss_end__ = .
+
+.heap           0x0000000020000008      0x200
+                0x0000000020000008                __HeapBase = .
+                0x0000000020000008                __end__ = .
+                0x0000000020000008                end = __end__
+ *(.heap*)
+ .heap          0x0000000020000008      0x200 ./output/startup_ARMCM0.o
+                0x0000000020000208                __HeapLimit = .
+
+.stack_dummy    0x0000000020000008      0x100
+ *(.stack*)
+ .stack         0x0000000020000008      0x100 ./output/startup_ARMCM0.o
+                0x0000000020001000                __StackTop = (ORIGIN (RAM) + LENGTH (RAM))
+                0x0000000020000f00                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
+                [!provide]                        PROVIDE (__stack = __StackTop)
+                0x0000000000000001                ASSERT ((__StackLimit >= __HeapLimit), region RAM overflowed with stack)
+LOAD ./output/main.o
+LOAD ./output/startup_ARMCM0.o
+OUTPUT(./output/stm32f0_discoverry_nvic.elf elf32-littlearm)
+
+.debug_info     0x0000000000000000      0x1db
+ .debug_info    0x0000000000000000      0x1db ./output/main.o
+
+.debug_abbrev   0x0000000000000000       0xce
+ .debug_abbrev  0x0000000000000000       0xce ./output/main.o
+
+.debug_aranges  0x0000000000000000       0x20
+ .debug_aranges
+                0x0000000000000000       0x20 ./output/main.o
+
+.debug_line     0x0000000000000000       0xbf
+ .debug_line    0x0000000000000000       0xbf ./output/main.o
+
+.debug_str      0x0000000000000000      0x1b1
+ .debug_str     0x0000000000000000      0x1b1 ./output/main.o
+
+.comment        0x0000000000000000       0x7f
+ .comment       0x0000000000000000       0x7f ./output/main.o
+                                         0x80 (size before relaxing)
+
+.ARM.attributes
+                0x0000000000000000       0x2f
+ .ARM.attributes
+                0x0000000000000000       0x31 ./output/main.o
+ .ARM.attributes
+                0x0000000000000031       0x1b ./output/startup_ARMCM0.o
+
+.debug_frame    0x0000000000000000      0x1b4
+ .debug_frame   0x0000000000000000      0x1b4 ./output/main.o

@@ -1,0 +1,8 @@
+1. Xác định ID ngắt cần dùng.
+2. Cập nhật handler interrupt tương ứng trong bảng software interrupt.
+3. Thiết lập cho phép ngắt ở ngoại vi.
+4. Thiết lập mức priority.
+5. Enable Interrupt trong NVIC.
+6. Bật ngắt toàn cục (enable global interrupt) bằng việc dùng ASM:
+    cpsie i
+7. Khi ra khỏi ngắt cần phải xóa cờ ngắt trong NVIC và ngoại vi(thanh ghi pending).
