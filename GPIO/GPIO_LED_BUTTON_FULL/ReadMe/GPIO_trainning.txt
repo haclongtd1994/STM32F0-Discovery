@@ -1,0 +1,4 @@
+1. Board STM32F0 Discoverry
+2. Reference manual and user board STM.
+3. Create make file project.
+4. Make struct file to setting easy.
