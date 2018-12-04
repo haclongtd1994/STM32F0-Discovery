@@ -16,7 +16,7 @@ RAM              0x0000000020000000 0x0000000000001000 xrw
 Linker script and memory map
 
 
-.text           0x0000000008000000     0x114e
+.text           0x0000000008000000     0x114a
  *(.vectors)
  .vectors       0x0000000008000000       0xc0 ./output/startup_ARMCM0.o
                 0x0000000008000000                __Vectors
@@ -63,35 +63,35 @@ Linker script and memory map
                 0x0000000008000cc0                dht11_init
                 0x0000000008000cfc                read_data_dht11
                 0x0000000008000d20                dht11_receive_data
- .text          0x0000000008000e58      0x2bc ./output/main.o
+ .text          0x0000000008000e58      0x2b8 ./output/main.o
                 0x0000000008000e58                delay
                 0x0000000008000e98                div
                 0x0000000008000ed8                main
- .text          0x0000000008001114        0x4 ./output/startup_ARMCM0.o
-                0x0000000008001114                Reset_Handler
+ .text          0x0000000008001110        0x4 ./output/startup_ARMCM0.o
+                0x0000000008001110                Reset_Handler
  *(.init)
  *(.fini)
  *(.rodata*)
- .rodata        0x0000000008001118       0x36 ./output/main.o
+ .rodata        0x0000000008001114       0x36 ./output/main.o
  *(.eh_frame*)
 
-.glue_7         0x0000000008001150        0x0
- .glue_7        0x0000000008001150        0x0 linker stubs
+.glue_7         0x000000000800114c        0x0
+ .glue_7        0x000000000800114c        0x0 linker stubs
 
-.glue_7t        0x0000000008001150        0x0
- .glue_7t       0x0000000008001150        0x0 linker stubs
+.glue_7t        0x000000000800114c        0x0
+ .glue_7t       0x000000000800114c        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008001150        0x0
- .vfp11_veneer  0x0000000008001150        0x0 linker stubs
+.vfp11_veneer   0x000000000800114c        0x0
+ .vfp11_veneer  0x000000000800114c        0x0 linker stubs
 
-.v4_bx          0x0000000008001150        0x0
- .v4_bx         0x0000000008001150        0x0 linker stubs
+.v4_bx          0x000000000800114c        0x0
+ .v4_bx         0x000000000800114c        0x0 linker stubs
 
-.iplt           0x0000000008001150        0x0
- .iplt          0x0000000008001150        0x0 ./output/systick.o
+.iplt           0x000000000800114c        0x0
+ .iplt          0x000000000800114c        0x0 ./output/systick.o
 
-.rel.dyn        0x0000000008001150        0x0
- .rel.iplt      0x0000000008001150        0x0 ./output/systick.o
+.rel.dyn        0x000000000800114c        0x0
+ .rel.iplt      0x000000000800114c        0x0 ./output/systick.o
 
 .data           0x0000000020000000        0x0
                 0x0000000020000000                __data_start__ = .
@@ -212,23 +212,23 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
  .debug_line    0x000000000000042f       0xbd ./output/dht11.o
  .debug_line    0x00000000000004ec      0x20d ./output/main.o
 
-.debug_str      0x0000000000000000      0xa89
- .debug_str     0x0000000000000000      0x14a ./output/systick.o
-                                        0x163 (size before relaxing)
- .debug_str     0x000000000000014a       0x5d ./output/usart.o
-                                        0x161 (size before relaxing)
- .debug_str     0x00000000000001a7      0x12d ./output/interrupt.o
-                                        0x227 (size before relaxing)
- .debug_str     0x00000000000002d4       0x2c ./output/button_polling.o
-                                        0x151 (size before relaxing)
- .debug_str     0x0000000000000300       0x69 ./output/gpio.o
+.debug_str      0x0000000000000000      0xa90
+ .debug_str     0x0000000000000000      0x151 ./output/systick.o
+                                        0x16a (size before relaxing)
+ .debug_str     0x0000000000000151       0x5d ./output/usart.o
+                                        0x168 (size before relaxing)
+ .debug_str     0x00000000000001ae      0x12d ./output/interrupt.o
+                                        0x22e (size before relaxing)
+ .debug_str     0x00000000000002db       0x2c ./output/button_polling.o
+                                        0x158 (size before relaxing)
+ .debug_str     0x0000000000000307       0x69 ./output/gpio.o
+                                        0x19e (size before relaxing)
+ .debug_str     0x0000000000000370      0x29e ./output/clock.o
+                                        0x3f2 (size before relaxing)
+ .debug_str     0x000000000000060e       0x4e ./output/dht11.o
                                         0x197 (size before relaxing)
- .debug_str     0x0000000000000369      0x29e ./output/clock.o
-                                        0x3eb (size before relaxing)
- .debug_str     0x0000000000000607       0x4e ./output/dht11.o
-                                        0x190 (size before relaxing)
- .debug_str     0x0000000000000655      0x434 ./output/main.o
-                                        0x7c8 (size before relaxing)
+ .debug_str     0x000000000000065c      0x434 ./output/main.o
+                                        0x7cf (size before relaxing)
 
 .comment        0x0000000000000000       0x7f
  .comment       0x0000000000000000       0x7f ./output/systick.o

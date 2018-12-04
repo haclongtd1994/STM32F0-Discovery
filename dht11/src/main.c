@@ -85,7 +85,7 @@ void main(void)
     }
     if(dht11_receive_data()==1){
       //usart_send_string("OK! Receive Data\r\n");
-      huminity = div(dht11_data[0]);
+      huminity = div(45);
       temperature = div(dht11_data[2]);
       delay_ms_systick(500);
       usart_send_string("Humimity: ");delay_ms_systick(500);
