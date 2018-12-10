@@ -2,8 +2,8 @@
 #include "project.h"
 
 volatile unsigned int state;
-volatile unsigned char rx_data;
-unsigned char data[64];
+volatile unsigned char rx_data=0;
+unsigned char data[64]="Test";
 unsigned char temp=0;
 
 struct div_t{
@@ -29,6 +29,7 @@ void delay(unsigned int timeout)
 struct div_t div(int data){
   struct div_t temp;
   int tam = data;
+  temp.chiahet=0;
   while(tam>=10){
     temp.chiahet++;
     tam -= 10;
@@ -42,6 +43,7 @@ void main(void)
 {
   system_init(PREDIV_1, PLL_MUX_12, HSI_DIV_2, DIV_1, SOURCE_PLL, APB1_HCLK_1);
   systick_init();
+
   //SET CLOCK AND INIT PIN OUTPUT
   enable_clock_gpio(PORT_C);
   enable_clock_gpio(PORT_A);
@@ -76,16 +78,21 @@ void main(void)
     }
     if(rx_data!=0){
       if(rx_data == 47){
+        data[temp]= '\0';
+        if((data[0]=='o')&&(data[1]=='n'))  set_led_on(LD3_PIN, PORT_C);
+        else if((data[0]=='o')&&(data[1]=='f')&&(data[2]=='f'))  set_led_off(LD3_PIN, PORT_C);
         usart_send_string(data);
-        temp = 0;
+        temp = 0;rx_data=0;
+      }else{
+        data[temp] = (unsigned char)rx_data;
+        temp++;
+        rx_data=0;
       }
-      data[temp] = (unsigned char)rx_data;
-      temp++;
-      rx_data = 0;
     }
+    /*
     if(dht11_receive_data()==1){
       //usart_send_string("OK! Receive Data\r\n");
-      huminity = div(45);
+      huminity = div(dht11_data[0]);
       temperature = div(dht11_data[2]);
       delay_ms_systick(500);
       usart_send_string("Humimity: ");delay_ms_systick(500);
@@ -108,5 +115,6 @@ void main(void)
     }
 
     delay_ms_systick(1000);
+    */
   }
 }

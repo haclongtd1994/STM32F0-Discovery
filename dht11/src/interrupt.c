@@ -1,6 +1,6 @@
 #include "interrupt.h"
 volatile unsigned int state=0;
-volatile unsigned char rx_data=0;
+volatile unsigned char rx_data;
 
 void Reserved_IRQHandler(void)
 {
