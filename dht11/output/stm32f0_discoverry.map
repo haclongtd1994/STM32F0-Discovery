@@ -15,7 +15,7 @@ RAM              0x0000000020000000 0x0000000000001000 xrw
 Linker script and memory map
 
 
-.text           0x0000000008000000     0x107d
+.text           0x0000000008000000     0x11a2
  *(.vectors)
  .vectors       0x0000000008000000       0xc0 ./output/startup_ARMCM0.o
                 0x0000000008000000                __Vectors
@@ -62,37 +62,37 @@ Linker script and memory map
                 0x0000000008000cc0                dht11_init
                 0x0000000008000cfc                read_data_dht11
                 0x0000000008000d20                dht11_receive_data
- .text          0x0000000008000e58      0x20c ./output/main.o
+ .text          0x0000000008000e58      0x324 ./output/main.o
                 0x0000000008000e58                delay
                 0x0000000008000e98                div
                 0x0000000008000ee0                main
- .text          0x0000000008001064        0x4 ./output/startup_ARMCM0.o
-                0x0000000008001064                Reset_Handler
+ .text          0x000000000800117c        0x4 ./output/startup_ARMCM0.o
+                0x000000000800117c                Reset_Handler
  *(.init)
  *(.fini)
  *(.rodata*)
- .rodata        0x0000000008001068       0x15 ./output/main.o
+ .rodata        0x0000000008001180       0x22 ./output/main.o
  *(.eh_frame*)
 
-.glue_7         0x0000000008001080        0x0
- .glue_7        0x0000000008001080        0x0 linker stubs
+.glue_7         0x00000000080011a4        0x0
+ .glue_7        0x00000000080011a4        0x0 linker stubs
 
-.glue_7t        0x0000000008001080        0x0
- .glue_7t       0x0000000008001080        0x0 linker stubs
+.glue_7t        0x00000000080011a4        0x0
+ .glue_7t       0x00000000080011a4        0x0 linker stubs
 
-.vfp11_veneer   0x0000000008001080        0x0
- .vfp11_veneer  0x0000000008001080        0x0 linker stubs
+.vfp11_veneer   0x00000000080011a4        0x0
+ .vfp11_veneer  0x00000000080011a4        0x0 linker stubs
 
-.v4_bx          0x0000000008001080        0x0
- .v4_bx         0x0000000008001080        0x0 linker stubs
+.v4_bx          0x00000000080011a4        0x0
+ .v4_bx         0x00000000080011a4        0x0 linker stubs
 
-.iplt           0x0000000008001080        0x0
- .iplt          0x0000000008001080        0x0 ./output/systick.o
+.iplt           0x00000000080011a4        0x0
+ .iplt          0x00000000080011a4        0x0 ./output/systick.o
 
-.rel.dyn        0x0000000008001080        0x0
- .rel.iplt      0x0000000008001080        0x0 ./output/systick.o
+.rel.dyn        0x00000000080011a4        0x0
+ .rel.iplt      0x00000000080011a4        0x0 ./output/systick.o
 
-.data           0x0000000020000000       0x40
+.data           0x0000000020000000        0x0
                 0x0000000020000000                __data_start__ = .
  *(vtable)
  *(.data*)
@@ -103,51 +103,52 @@ Linker script and memory map
  .data          0x0000000020000000        0x0 ./output/gpio.o
  .data          0x0000000020000000        0x0 ./output/clock.o
  .data          0x0000000020000000        0x0 ./output/dht11.o
- .data          0x0000000020000000       0x40 ./output/main.o
-                0x0000000020000000                data
- .data          0x0000000020000040        0x0 ./output/startup_ARMCM0.o
-                0x0000000020000040                __data_end__ = .
+ .data          0x0000000020000000        0x0 ./output/main.o
+ .data          0x0000000020000000        0x0 ./output/startup_ARMCM0.o
+                0x0000000020000000                __data_end__ = .
 
-.igot.plt       0x0000000020000040        0x0
- .igot.plt      0x0000000020000040        0x0 ./output/systick.o
+.igot.plt       0x0000000020000000        0x0
+ .igot.plt      0x0000000020000000        0x0 ./output/systick.o
 
-.bss            0x0000000020000040       0x2c
-                0x0000000020000040                . = ALIGN (0x4)
-                0x0000000020000040                __bss_start__ = .
+.bss            0x0000000020000000       0x38
+                0x0000000020000000                . = ALIGN (0x4)
+                0x0000000020000000                __bss_start__ = .
  *(.bss*)
- .bss           0x0000000020000040        0x0 ./output/systick.o
- .bss           0x0000000020000040        0x0 ./output/usart.o
- .bss           0x0000000020000040        0x4 ./output/interrupt.o
-                0x0000000020000040                state
- .bss           0x0000000020000044        0x0 ./output/button_polling.o
- .bss           0x0000000020000044        0x0 ./output/gpio.o
- .bss           0x0000000020000044        0x0 ./output/clock.o
- .bss           0x0000000020000044       0x14 ./output/dht11.o
-                0x0000000020000044                dht11_data
- .bss           0x0000000020000058        0x2 ./output/main.o
-                0x0000000020000058                rx_data
-                0x0000000020000059                temp
- .bss           0x000000002000005a        0x0 ./output/startup_ARMCM0.o
+ .bss           0x0000000020000000        0x0 ./output/systick.o
+ .bss           0x0000000020000000        0x0 ./output/usart.o
+ .bss           0x0000000020000000        0x4 ./output/interrupt.o
+                0x0000000020000000                state
+ .bss           0x0000000020000004        0x0 ./output/button_polling.o
+ .bss           0x0000000020000004        0x0 ./output/gpio.o
+ .bss           0x0000000020000004        0x0 ./output/clock.o
+ .bss           0x0000000020000004       0x14 ./output/dht11.o
+                0x0000000020000004                dht11_data
+ .bss           0x0000000020000018        0xe ./output/main.o
+                0x0000000020000018                send
+                0x000000002000001c                rx_data
+                0x0000000020000020                data
+                0x0000000020000025                temp
+ .bss           0x0000000020000026        0x0 ./output/startup_ARMCM0.o
  *(COMMON)
- COMMON         0x000000002000005a        0x0 ./output/interrupt.o
- *fill*         0x000000002000005a        0x2 
- COMMON         0x000000002000005c       0x10 ./output/main.o
-                0x000000002000005c                temperature
-                0x0000000020000064                huminity
-                0x000000002000006c                . = ALIGN (0x4)
-                0x000000002000006c                __bss_end__ = .
+ COMMON         0x0000000020000026        0x0 ./output/interrupt.o
+ *fill*         0x0000000020000026        0x2 
+ COMMON         0x0000000020000028       0x10 ./output/main.o
+                0x0000000020000028                temperature
+                0x0000000020000030                huminity
+                0x0000000020000038                . = ALIGN (0x4)
+                0x0000000020000038                __bss_end__ = .
 
-.heap           0x0000000020000070      0x200
-                0x0000000020000070                __HeapBase = .
-                0x0000000020000070                __end__ = .
-                0x0000000020000070                end = __end__
+.heap           0x0000000020000038      0x200
+                0x0000000020000038                __HeapBase = .
+                0x0000000020000038                __end__ = .
+                0x0000000020000038                end = __end__
  *(.heap*)
- .heap          0x0000000020000070      0x200 ./output/startup_ARMCM0.o
-                0x0000000020000270                __HeapLimit = .
+ .heap          0x0000000020000038      0x200 ./output/startup_ARMCM0.o
+                0x0000000020000238                __HeapLimit = .
 
-.stack_dummy    0x0000000020000070      0x100
+.stack_dummy    0x0000000020000038      0x100
  *(.stack*)
- .stack         0x0000000020000070      0x100 ./output/startup_ARMCM0.o
+ .stack         0x0000000020000038      0x100 ./output/startup_ARMCM0.o
                 0x0000000020001000                __StackTop = (ORIGIN (RAM) + LENGTH (RAM))
                 0x0000000020000f00                __StackLimit = (__StackTop - SIZEOF (.stack_dummy))
                 [!provide]                        PROVIDE (__stack = __StackTop)
@@ -163,7 +164,7 @@ LOAD ./output/main.o
 LOAD ./output/startup_ARMCM0.o
 OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
 
-.debug_info     0x0000000000000000     0x1897
+.debug_info     0x0000000000000000     0x18a7
  .debug_info    0x0000000000000000      0x13f ./output/systick.o
  .debug_info    0x000000000000013f      0x1a4 ./output/usart.o
  .debug_info    0x00000000000002e3      0x221 ./output/interrupt.o
@@ -171,9 +172,9 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
  .debug_info    0x00000000000005f0      0x1e7 ./output/gpio.o
  .debug_info    0x00000000000007d7      0x364 ./output/clock.o
  .debug_info    0x0000000000000b3b      0x178 ./output/dht11.o
- .debug_info    0x0000000000000cb3      0xbe4 ./output/main.o
+ .debug_info    0x0000000000000cb3      0xbf4 ./output/main.o
 
-.debug_abbrev   0x0000000000000000      0x81f
+.debug_abbrev   0x0000000000000000      0x82a
  .debug_abbrev  0x0000000000000000       0xda ./output/systick.o
  .debug_abbrev  0x00000000000000da       0xda ./output/usart.o
  .debug_abbrev  0x00000000000001b4       0xe7 ./output/interrupt.o
@@ -181,7 +182,7 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
  .debug_abbrev  0x000000000000034e       0xda ./output/gpio.o
  .debug_abbrev  0x0000000000000428       0xcb ./output/clock.o
  .debug_abbrev  0x00000000000004f3       0xe5 ./output/dht11.o
- .debug_abbrev  0x00000000000005d8      0x247 ./output/main.o
+ .debug_abbrev  0x00000000000005d8      0x252 ./output/main.o
 
 .debug_aranges  0x0000000000000000      0x100
  .debug_aranges
@@ -201,7 +202,7 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
  .debug_aranges
                 0x00000000000000e0       0x20 ./output/main.o
 
-.debug_line     0x0000000000000000      0x705
+.debug_line     0x0000000000000000      0x744
  .debug_line    0x0000000000000000       0x8b ./output/systick.o
  .debug_line    0x000000000000008b       0x95 ./output/usart.o
  .debug_line    0x0000000000000120      0x108 ./output/interrupt.o
@@ -209,9 +210,9 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
  .debug_line    0x00000000000002ae       0x8c ./output/gpio.o
  .debug_line    0x000000000000033a       0xf5 ./output/clock.o
  .debug_line    0x000000000000042f       0xbd ./output/dht11.o
- .debug_line    0x00000000000004ec      0x219 ./output/main.o
+ .debug_line    0x00000000000004ec      0x258 ./output/main.o
 
-.debug_str      0x0000000000000000      0xa90
+.debug_str      0x0000000000000000      0xa95
  .debug_str     0x0000000000000000      0x151 ./output/systick.o
                                         0x16a (size before relaxing)
  .debug_str     0x0000000000000151       0x5d ./output/usart.o
@@ -226,8 +227,8 @@ OUTPUT(./output/stm32f0_discoverry.elf elf32-littlearm)
                                         0x3f2 (size before relaxing)
  .debug_str     0x000000000000060e       0x4e ./output/dht11.o
                                         0x197 (size before relaxing)
- .debug_str     0x000000000000065c      0x434 ./output/main.o
-                                        0x7cf (size before relaxing)
+ .debug_str     0x000000000000065c      0x439 ./output/main.o
+                                        0x7d4 (size before relaxing)
 
 .comment        0x0000000000000000       0x7f
  .comment       0x0000000000000000       0x7f ./output/systick.o

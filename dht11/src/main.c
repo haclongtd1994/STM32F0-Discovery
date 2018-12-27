@@ -1,9 +1,11 @@
 #include "string.h"
+#include "stdio.h"
 #include "project.h"
 
 volatile unsigned int state;
+volatile unsigned int send=0;
 volatile unsigned char rx_data=0;
-unsigned char data[64]="Test";
+unsigned char data[5]={0,0,0,0,0};
 unsigned char temp=0;
 
 struct div_t{
@@ -76,12 +78,15 @@ void main(void)
       set_led_off(LD4_PIN, PORT_C);
       delay_ms_systick(1000);
     }
+
     if(rx_data!=0){
       if(rx_data == 47){
         data[temp]= '\0';
-        if((data[0]=='o')&&(data[1]=='n'))  set_led_on(LD3_PIN, PORT_C);
-        else if((data[0]=='o')&&(data[1]=='f')&&(data[2]=='f'))  set_led_off(LD3_PIN, PORT_C);
+        if((data[0]=='o')&&(data[1]=='n')&&(data[2]=='\0'))  set_led_on(LD3_PIN, PORT_C);
+        else if((data[0]=='o')&&(data[1]=='f')&&(data[2]=='f')&&(data[3]=='\0'))  set_led_off(LD3_PIN, PORT_C);
+        else if((data[0]=='s')&&(data[1]=='e')&&(data[2]=='n')&&(data[3]=='d')&&(data[4]=='\0')) send=1;
         usart_send_string(data);
+        usart_send_string("\r\n");
         temp = 0;rx_data=0;
       }else{
         data[temp] = (unsigned char)rx_data;
@@ -89,32 +94,27 @@ void main(void)
         rx_data=0;
       }
     }
-    /*
-    if(dht11_receive_data()==1){
+    if(send){
+      while(dht11_receive_data()==0);
       //usart_send_string("OK! Receive Data\r\n");
       huminity = div(dht11_data[0]);
       temperature = div(dht11_data[2]);
+      usart_send_string("1 ");
       delay_ms_systick(500);
-      usart_send_string("Humimity: ");delay_ms_systick(500);
       usart_send_1_data(huminity.chiahet);
       usart_send_1_data(huminity.phandu);
-      usart_send_string("\r\n");
+      usart_send_string(" ");
       delay_ms_systick(500);
-      usart_send_string("Temperature: ");delay_ms_systick(500);
       usart_send_1_data(temperature.chiahet);
       usart_send_1_data(temperature.phandu);
       usart_send_string("\r\n");
       if(dht11_data[0] > 40){
-        set_led_on(LD3_PIN, PORT_C);
-        set_led_on(LD4_PIN, PORT_C);
-        delay_ms_systick(1000);
-        set_led_off(LD3_PIN, PORT_C);
-        set_led_off(LD4_PIN, PORT_C);
-        delay_ms_systick(1000);
+        state=1;
       }
+      else state=0;
+      send=0;
     }
 
-    delay_ms_systick(1000);
-    */
+
   }
 }
