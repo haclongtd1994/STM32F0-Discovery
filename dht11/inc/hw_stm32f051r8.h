@@ -172,8 +172,8 @@ typedef enum{
 #define DHT11_PIN  3
 
 //led pin PORT_C
-#define LD3_PIN    9
-#define LD4_PIN    8
+#define GPIO_PIN    9
+#define GPIO_PIN_2    8
 //button_pin PORT_A
 #define Button_A0  0
 //transmit pin usart 1 PORT_A

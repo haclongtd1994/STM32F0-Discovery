@@ -52,7 +52,7 @@ void SysTick_Handler(void)
 void Interrupt_Extern_0(void){
   //interrupt for A0, B0, C0, D0, E0, F0
   if(read_reg(EXTI_PR, (1<<0))==0x01){
-    state =! state;
+    state = 1;
   }
   //Xoa ngat EXTI va NVIC
   write_reg(EXTI_PR, (1<<0));
